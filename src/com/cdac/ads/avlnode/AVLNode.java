@@ -8,6 +8,7 @@ public class AVLNode {
 
 	public AVLNode(int keyHT) {
 		this.keyHT = keyHT;
+		this.height = 1;
 		this.lChild = null;
 		this.rChild = null;
 	}
