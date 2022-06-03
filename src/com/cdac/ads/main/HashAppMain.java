@@ -13,34 +13,39 @@ public class HashAppMain {
 
 	public static void main(String[] args) {
 		header();
-		Scanner scan=new Scanner(System.in);
-		boolean exit=false;
-		while(!exit) {
-			System.out.println("=== Options ===");
+
+		boolean flag = true;
+		while (flag) {
+			System.out.println("=== Available Options ===");
 			System.out.println("1. Add element in Hash Table");
 			System.out.println("2. Search for an element in the table");
 			System.out.println("3. Remove an element from the table");
 			System.out.println("4. Display all elements");
 			System.out.println("5. Exit");
-			switch(Integer.parseInt(scan.next())) {
-			case 1:
-				break;
-			case 2:
-				break;
-			case 3:
-				break;
-			case 4:
-				break;
-			case 5:
-				System.out.print("Thank You! See you again!");
-				exit=true;
-				break;
+			System.out.print("Enter Your Choice[1-5]: ");
+
+			try (Scanner scan = new Scanner(System.in)) {
+				switch (Integer.parseInt(scan.nextLine())) {
+				case 1:
+					break;
+				case 2:
+					break;
+				case 3:
+					break;
+				case 4:
+					break;
+				case 5:
+					System.out.print("Thank You! See you again!");
+					flag = false;
+					break;
+				}
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
 			}
 		}
-		scan.close();
 	}
 
-	//function to add header while execution.
+	// function to add header while execution.
 	public static void header() {
 		System.out.println("ADS MINI PROJECT ~ Hardik(220340120083) & Joy(220340120092)");
 		System.out.println("Implementation of Generic Hash Table with chaining by AVL Tree as collision handling");
@@ -53,5 +58,4 @@ public class HashAppMain {
 		System.out.println("Prepopulated Elements for user convenience: n = 5");
 		System.out.println();
 	}
-
 }

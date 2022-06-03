@@ -4,7 +4,7 @@ public class AvlNode {
 	int data;
 	AvlNode lChild;
 	AvlNode rChild;
-	
+
 	public AvlNode(int data) {
 		this.data = data;
 		this.lChild = null;
@@ -34,8 +34,5 @@ public class AvlNode {
 	public void setrChild(AvlNode rChild) {
 		this.rChild = rChild;
 	}
-	
-	
-	
 
 }
