@@ -7,10 +7,37 @@
 
 package com.cdac.ads.main;
 
+import java.util.Scanner;
+
 public class HashAppMain {
 
 	public static void main(String[] args) {
 		header();
+		Scanner scan=new Scanner(System.in);
+		boolean exit=false;
+		while(!exit) {
+			System.out.println("=== Options ===");
+			System.out.println("1. Add element in Hash Table");
+			System.out.println("2. Search for an element in the table");
+			System.out.println("3. Remove an element from the table");
+			System.out.println("4. Display all elements");
+			System.out.println("5. Exit");
+			switch(Integer.parseInt(scan.next())) {
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				System.out.print("Thank You! See you again!");
+				exit=true;
+				break;
+			}
+		}
+		scan.close();
 	}
 
 	//function to add header while execution.
