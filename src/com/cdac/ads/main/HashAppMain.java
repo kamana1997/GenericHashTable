@@ -13,34 +13,35 @@ public class HashAppMain {
 
 	public static void main(String[] args) {
 		header();
+		try (Scanner scan = new Scanner(System.in)) {
+			boolean flag = true;
+			while(flag) {
+				System.out.println("\n=== Available Options ===");
+				System.out.println("1. Add element in Hash Table");
+				System.out.println("2. Search for an element in the table");
+				System.out.println("3. Remove an element from the table");
+				System.out.println("4. Display all elements");
+				System.out.println("5. Exit");
+				System.out.print("Enter Your Choice[1-5]: ");
 
-		boolean flag = true;
-		while (flag) {
-			System.out.println("=== Available Options ===");
-			System.out.println("1. Add element in Hash Table");
-			System.out.println("2. Search for an element in the table");
-			System.out.println("3. Remove an element from the table");
-			System.out.println("4. Display all elements");
-			System.out.println("5. Exit");
-			System.out.print("Enter Your Choice[1-5]: ");
-
-			try (Scanner scan = new Scanner(System.in)) {
-				switch (Integer.parseInt(scan.nextLine())) {
-				case 1:
-					break;
-				case 2:	
-					break;
-				case 3:
-					break;
-				case 4:
-					break;
-				case 5:
-					System.out.print("Thank You! See you again!");
-					flag = false;
-					break;
+				try {
+					switch (Integer.parseInt(scan.nextLine())) {
+					case 1:
+						break;
+					case 2:
+						break;
+					case 3:
+						break;
+					case 4:
+						break;
+					case 5:
+						System.out.print("Thank You! See you again!");
+						flag = false;
+						break;
+					}
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
 				}
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
 			}
 		}
 	}
