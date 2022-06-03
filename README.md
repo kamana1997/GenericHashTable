@@ -1,2 +1,0 @@
-# GenericHashTable
-ADS PROJECT 
