@@ -7,12 +7,16 @@ public class AVLTree<T extends Object> {//implements AVLTreeINTF {
 	public AVLNode<T> node;
 
 	//@Override
-	public AVLNode<T> addInTree(AVLNode<T> node, int keyHT) {
+	public AVLNode<T> addInTree(AVLNode<T> node, int keyHT, T value) {
+		if (node == null) {
+			AVLNode<T> root = new AVLNode<T>(keyHT,value);
+			return root;
+		}
 
 		if (keyHT < node.getKeyHT())
-			node.setlChild(addInTree(node.getlChild(), keyHT));
+			node.setlChild(addInTree(node.getlChild(), keyHT,value));
 		else if (keyHT > node.getKeyHT())
-			node.setrChild(addInTree(node.getrChild(), keyHT));
+			node.setrChild(addInTree(node.getrChild(), keyHT,value));
 		else
 			return node;
 

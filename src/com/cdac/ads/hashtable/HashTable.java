@@ -54,19 +54,22 @@ public class HashTable<T extends Object> {
 		if (bucketArray.get(bucketIndex) == null) {
 			HashTableNode<Integer, T> newNode = new HashTableNode<Integer, T>(key, value, hashCode);
 			bucketArray.set(bucketIndex, newNode);
-			size++;
-			return;
+			//size++;
+			//return;
+		}else {
+			AVLNode<T> root = null;
+			if (bucketArray.get(bucketIndex).next == null) {
+				root = new AVLNode<T>(key, value);
+				bucketArray.get(bucketIndex).next = root;
+			} else {
+				root = bucketArray.get(bucketIndex).next;
+			}
+			AVLTree<T> tree = new AVLTree<T>();
+			root = tree.addInTree(root, key,value);
+			//size++;
 		}
-		AVLNode<T> root = null;
-		if (bucketArray.get(bucketIndex).next == null) {
-			root = new AVLNode<T>(key, value);
-		} else {
-			root = bucketArray.get(bucketIndex).next;
-		}
-		AVLTree<T> tree = new AVLTree<T>();
-		tree.addInTree(root, key);
-		size++;
 
+		size += 1;
 		// If load factor goes beyond threshold, then
 		// double hash table size
 		if ((1.0 * size) / numBuckets >= 0.7) {
@@ -87,7 +90,7 @@ public class HashTable<T extends Object> {
 				}
 			}
 			// adding the node which have colliding bucket index.
-			add(key, value);
+			//add(key, value);
 		}
 
 	}
