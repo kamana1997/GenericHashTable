@@ -50,9 +50,6 @@ public class HashTable<T extends Object> {
 		// Find head of chain for given key
 		int bucketIndex = getBucketIndex(key);
 		int hashCode = hashCode(key);
-		/*
-		 * boolean flag = false; Integer collisionKey = null; T collisionValue = null;
-		 */
 
 		if((bucketArray.get(bucketIndex) == null)&&((1.0 * size) / numBuckets < 0.7)) {
 			HashTableNode<Integer, T> newNode = new HashTableNode<Integer, T>(key, value, hashCode);
@@ -71,10 +68,7 @@ public class HashTable<T extends Object> {
 			AVLTree<T> tree = new AVLTree<T>();
 			tree.addInTree(root, key);
 			size++;
-		} /*
-			 * else { if(key!=null) { flag = true; collisionKey = key; collisionValue =
-			 * value; } }
-			 */
+		}
 
 		// If load factor goes beyond threshold, then
 		// double hash table size
@@ -95,9 +89,8 @@ public class HashTable<T extends Object> {
 					add(hashNode.getKey(),hashNode.getValue());
 				}
 			}
-			//if(flag) {
-				add(key,value);
-			//}
+			//adding the node which have colliding bucket index.
+			add(key,value);
 		}
 
 	}
