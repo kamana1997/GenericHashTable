@@ -9,7 +9,7 @@ public class AVLTree<T extends Object> {//implements AVLTreeINTF {
 	//@Override
 	public AVLNode<T> addInTree(AVLNode<T> node, int keyHT) {
 		if (node == null) {
-			AVLNode<T> root = new AVLNode<T>(keyHT,null);
+			AVLNode<T> root = new AVLNode<T>(keyHT,(T) "xyz");
 			return root;
 		}
 

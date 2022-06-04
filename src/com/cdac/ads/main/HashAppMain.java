@@ -10,13 +10,15 @@ package com.cdac.ads.main;
 import java.util.Scanner;
 
 import com.cdac.ads.avltree.AVLTree;
+import com.cdac.ads.hashtable.HashTable;
 
 public class HashAppMain{
 
-	public static void main(String[] args) {
+	public static <T extends Object> void main(String[] args) {
 		header();
 		try (Scanner scan = new Scanner(System.in)) {
 			boolean flag = true;
+			HashTable<T> hashTable = new HashTable<T>();
 			while(flag) {
 				System.out.println("\n=== Available Options ===");
 				System.out.println("1. Add element in Hash Table");
@@ -29,21 +31,28 @@ public class HashAppMain{
 				try {
 					switch (Integer.parseInt(scan.nextLine())) {
 					case 1:
-						AVLTree<Integer> tree = new AVLTree<>();
-						tree.node = tree.addInTree(tree.node, 10);
-						tree.node = tree.addInTree(tree.node, 20);
-						tree.node = tree.addInTree(tree.node, 30);
-						tree.node = tree.addInTree(tree.node, 40);
-						tree.node = tree.addInTree(tree.node, 50);
-						tree.node = tree.addInTree(tree.node, 25);
-						System.out.println("Preorder traversal" + " of constructed tree is : ");
-						tree.preOrder(tree.node);
+						hashTable.add(1,(T) "Hardik");
+						hashTable.add(22,(T) "xx");
+						hashTable.add(3,(T) "yy");
+						hashTable.add(55,(T) "ardik");
+						hashTable.add(66,(T) "rdik");
+						hashTable.add(77,(T) "ik");
+						hashTable.add(2,(T) "k");
+						hashTable.add(1,(T) "Ha");
+						hashTable.add(99,(T) "Har");
+						hashTable.add(100,(T) "Haik");
+						hashTable.add(10,(T) "Hak");
+						hashTable.add(12,(T) "Hk");
+						hashTable.add(110,(T) "Hik");
 						break;
 					case 2:
+						
+						
 						break;
 					case 3:
 						break;
 					case 4:
+						hashTable.display();
 						break;
 					case 5:
 						System.out.print("Thank You! See you again!");
@@ -51,7 +60,7 @@ public class HashAppMain{
 						break;
 					}
 				} catch (Exception e) {
-					System.out.println(e.getMessage());
+					e.printStackTrace();
 				}
 			}
 		}

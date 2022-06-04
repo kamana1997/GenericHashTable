@@ -1,8 +1,6 @@
 package com.cdac.ads.hashtable;
 
-import com.cdac.ads.avlnode.AVLNode;
-
-public class HashTableNode<Integer, T>{
+public class HashTableNode<Integer, T extends Object>{
 	private Integer key;
 	private T value;
 	final int hashCode;

@@ -6,7 +6,7 @@ import java.util.Objects;
 import com.cdac.ads.avlnode.AVLNode;
 import com.cdac.ads.avltree.AVLTree;
 
-public class HashTable<T> {
+public class HashTable<T extends Object> {
 	// bucketArray is used to store array of chains
 	private ArrayList<HashTableNode<Integer, T>> bucketArray;
 
@@ -41,7 +41,7 @@ public class HashTable<T> {
 		int hashCode = hashCode(key);
 		int index = hashCode % numBuckets;
 		// key.hashCode() could be negative.
-		index = index < 0 ? index * -1 : index;
+		index = ((index < 0) ? (index * -1) : index);
 		return index;
 	}
 
@@ -56,8 +56,11 @@ public class HashTable<T> {
 			bucketArray.set(bucketIndex, newNode);
 			return;
 		}
+		AVLNode<T> root = null;
+		if(bucketArray.get(bucketIndex).next!=null) {
+			 root = new AVLNode<T>(bucketArray.get(bucketIndex).next.getKey(), value);
+		}
 		
-		AVLNode<T> root = new AVLNode<T>(bucketArray.get(bucketIndex).next.getKey(), value);
 		HashTableNode<Integer, T> newNode = new HashTableNode<Integer, T>(key, value, hashCode);
 		
 		AVLTree<T> tree = new AVLTree<T>();
@@ -91,6 +94,14 @@ public class HashTable<T> {
 			add(node.getKeyHT(),value);
 			preOrder(node.getlChild(),node.getValue());
 			preOrder(node.getrChild(),node.getValue());
+		}
+	}
+	
+	public void display() {
+		for(HashTableNode<Integer,T> h: bucketArray) {
+			if(h!=null) {
+				System.out.println(h.getValue());
+			}
 		}
 	}
 }
