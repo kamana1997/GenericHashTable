@@ -6,6 +6,11 @@ public class AVLTree implements AVLTreeINTF {
 
 	public AVLNode node;
 	
+	public AVLTree(AVLNode node) {
+		super();
+		this.node = node;
+	}
+
 	@Override
 	public AVLNode addInTree(AVLNode node, int keyHT) {
 		if (node == null) {
