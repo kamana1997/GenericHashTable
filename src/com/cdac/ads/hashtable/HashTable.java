@@ -60,9 +60,9 @@ public class HashTable<T> {
 		AVLNode<T> root = new AVLNode<T>(bucketArray.get(bucketIndex).next.getKey(), value);
 		HashTableNode<Integer, T> newNode = new HashTableNode<Integer, T>(key, value, hashCode);
 		
-		//AVLTree<T> tree = new AVLTree<T>(root);
+		AVLTree<T> tree = new AVLTree<T>();
 		
-		//tree.addInTree(root, newNode.getKey());
+		tree.addInTree(root, newNode.getKey());
 		
 		size++;
 
@@ -77,16 +77,20 @@ public class HashTable<T> {
 				bucketArray.add(null);
 			}
 
-			/*for (HashTableNode<Integer, T> headNode : tempArray) {
-				preOrder(new AVLNode(headNode.getKey()),headNode.getValue());
-			}*/
+			for (HashTableNode<Integer, T> headNode : tempArray) {
+				if(headNode.next != null) {
+					AVLNode<T> rootTrav = new AVLNode<T>(headNode.getKey(),headNode.getValue());
+					preOrder(rootTrav, value);
+				}
+			}
 		}
 	}
 
-	/*public void preOrder(AVLNode node, T value) {
+	public void preOrder(AVLNode<T> node, T value) {
 		if (node != null) {
 			add(node.getKeyHT(),value);
-			preOrder(node.getlChild());
-			preOrder(node.getrChild());
-		}*/
+			preOrder(node.getlChild(),node.getValue());
+			preOrder(node.getrChild(),node.getValue());
+		}
+	}
 }
