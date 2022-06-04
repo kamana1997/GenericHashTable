@@ -51,24 +51,21 @@ public class HashTable<T extends Object> {
 		int bucketIndex = getBucketIndex(key);
 		int hashCode = hashCode(key);
 
-		if((bucketArray.get(bucketIndex) == null)&&((1.0 * size) / numBuckets < 0.7)) {
+		if (bucketArray.get(bucketIndex) == null) {
 			HashTableNode<Integer, T> newNode = new HashTableNode<Integer, T>(key, value, hashCode);
 			bucketArray.set(bucketIndex, newNode);
 			size++;
 			return;
 		}
-
-		if(bucketArray.get(bucketIndex)!=null) {
-			AVLNode<T> root = null;
-			if(bucketArray.get(bucketIndex).next==null) {
-				 root = new AVLNode<T>(key, value);
-			}else {
-				root = bucketArray.get(bucketIndex).next;
-			}
-			AVLTree<T> tree = new AVLTree<T>();
-			tree.addInTree(root, key);
-			size++;
+		AVLNode<T> root = null;
+		if (bucketArray.get(bucketIndex).next == null) {
+			root = new AVLNode<T>(key, value);
+		} else {
+			root = bucketArray.get(bucketIndex).next;
 		}
+		AVLTree<T> tree = new AVLTree<T>();
+		tree.addInTree(root, key);
+		size++;
 
 		// If load factor goes beyond threshold, then
 		// double hash table size
@@ -81,34 +78,34 @@ public class HashTable<T extends Object> {
 				bucketArray.add(null);
 			}
 			for (HashTableNode<Integer, T> hashNode : oldBucketArray) {
-				if(hashNode!=null) {
-					if(hashNode.next!=null) {
+				if (hashNode != null) {
+					if (hashNode.next != null) {
 						AVLNode<T> travNode = hashNode.next;
 						preOrderAdd(travNode);
 					}
-					add(hashNode.getKey(),hashNode.getValue());
+					add(hashNode.getKey(), hashNode.getValue());
 				}
 			}
-			//adding the node which have colliding bucket index.
-			add(key,value);
+			// adding the node which have colliding bucket index.
+			add(key, value);
 		}
 
 	}
 
 	public void preOrderAdd(AVLNode<T> node) {
 		if (node != null) {
-			add(node.getKeyHT(),node.getValue());
+			add(node.getKeyHT(), node.getValue());
 			preOrderAdd(node.getlChild());
 			preOrderAdd(node.getrChild());
 		}
 	}
-	
+
 	public void display() {
 		AVLTree<T> avlTree = new AVLTree<>();
-		for(HashTableNode<Integer,T> h: this.bucketArray) {
-			if(h!=null) {
+		for (HashTableNode<Integer, T> h : this.bucketArray) {
+			if (h != null) {
 				System.out.println(h.getValue());
-				if(h.next!=null) {
+				if (h.next != null) {
 					avlTree.preOrder(h.next);
 				}
 			}
