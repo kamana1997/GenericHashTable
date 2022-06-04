@@ -18,7 +18,7 @@ public class HashTable<T extends Object> {
 
 	public HashTable() {
 		bucketArray = new ArrayList<>();
-		numBuckets = 10;
+		numBuckets = 5;
 		size = 0;
 
 		// Creating empty buckets
@@ -41,7 +41,7 @@ public class HashTable<T extends Object> {
 		int hashCode = hashCode(key);
 		int index = hashCode % numBuckets;
 		// key.hashCode() could be negative.
-		index = ((index < 0) ? (index * -1) : index);
+		index = index < 0 ? index * -1 : index;
 		return index;
 	}
 
@@ -50,57 +50,74 @@ public class HashTable<T extends Object> {
 		// Find head of chain for given key
 		int bucketIndex = getBucketIndex(key);
 		int hashCode = hashCode(key);
+		/*
+		 * boolean flag = false; Integer collisionKey = null; T collisionValue = null;
+		 */
 
-		if(bucketArray.get(bucketIndex) == null) {
+		if((bucketArray.get(bucketIndex) == null)&&((1.0 * size) / numBuckets < 0.7)) {
 			HashTableNode<Integer, T> newNode = new HashTableNode<Integer, T>(key, value, hashCode);
 			bucketArray.set(bucketIndex, newNode);
+			size++;
 			return;
 		}
-		AVLNode<T> root = null;
-		if(bucketArray.get(bucketIndex).next!=null) {
-			 root = new AVLNode<T>(bucketArray.get(bucketIndex).next.getKey(), value);
-		}
-		
-		HashTableNode<Integer, T> newNode = new HashTableNode<Integer, T>(key, value, hashCode);
-		
-		AVLTree<T> tree = new AVLTree<T>();
-		
-		tree.addInTree(root, newNode.getKey());
-		
-		size++;
+
+		if(bucketArray.get(bucketIndex)!=null) {
+			AVLNode<T> root = null;
+			if(bucketArray.get(bucketIndex).next==null) {
+				 root = new AVLNode<T>(key, value);
+			}else {
+				root = bucketArray.get(bucketIndex).next;
+			}
+			AVLTree<T> tree = new AVLTree<T>();
+			tree.addInTree(root, key);
+			size++;
+		} /*
+			 * else { if(key!=null) { flag = true; collisionKey = key; collisionValue =
+			 * value; } }
+			 */
 
 		// If load factor goes beyond threshold, then
 		// double hash table size
 		if ((1.0 * size) / numBuckets >= 0.7) {
-			ArrayList<HashTableNode<Integer, T>> tempArray = bucketArray;
+			ArrayList<HashTableNode<Integer, T>> oldBucketArray = bucketArray;
 			bucketArray = new ArrayList<>();
 			numBuckets = 2 * numBuckets;
 			size = 0;
 			for (int i = 0; i < numBuckets; i++) {
 				bucketArray.add(null);
 			}
-
-			for (HashTableNode<Integer, T> headNode : tempArray) {
-				if(headNode.next != null) {
-					AVLNode<T> rootTrav = new AVLNode<T>(headNode.getKey(),headNode.getValue());
-					preOrder(rootTrav, value);
+			for (HashTableNode<Integer, T> hashNode : oldBucketArray) {
+				if(hashNode!=null) {
+					if(hashNode.next!=null) {
+						AVLNode<T> travNode = hashNode.next;
+						preOrderAdd(travNode);
+					}
+					add(hashNode.getKey(),hashNode.getValue());
 				}
 			}
+			//if(flag) {
+				add(key,value);
+			//}
 		}
+
 	}
 
-	public void preOrder(AVLNode<T> node, T value) {
+	public void preOrderAdd(AVLNode<T> node) {
 		if (node != null) {
-			add(node.getKeyHT(),value);
-			preOrder(node.getlChild(),node.getValue());
-			preOrder(node.getrChild(),node.getValue());
+			add(node.getKeyHT(),node.getValue());
+			preOrderAdd(node.getlChild());
+			preOrderAdd(node.getrChild());
 		}
 	}
 	
 	public void display() {
-		for(HashTableNode<Integer,T> h: bucketArray) {
+		AVLTree<T> avlTree = new AVLTree<>();
+		for(HashTableNode<Integer,T> h: this.bucketArray) {
 			if(h!=null) {
 				System.out.println(h.getValue());
+				if(h.next!=null) {
+					avlTree.preOrder(h.next);
+				}
 			}
 		}
 	}

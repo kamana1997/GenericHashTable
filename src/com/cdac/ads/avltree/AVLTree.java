@@ -8,10 +8,6 @@ public class AVLTree<T extends Object> {//implements AVLTreeINTF {
 
 	//@Override
 	public AVLNode<T> addInTree(AVLNode<T> node, int keyHT) {
-		if (node == null) {
-			AVLNode<T> root = new AVLNode<T>(keyHT,(T) "xyz");
-			return root;
-		}
 
 		if (keyHT < node.getKeyHT())
 			node.setlChild(addInTree(node.getlChild(), keyHT));
@@ -117,7 +113,7 @@ public class AVLTree<T extends Object> {//implements AVLTreeINTF {
 	// TODO To be removed after AVL Testing
 	public void preOrder(AVLNode<T> node) {
 		if (node != null) {
-			System.out.print(node.getKeyHT() + " ");
+			System.out.println(node.getKeyHT() + " " + node.getValue());
 			preOrder(node.getlChild());
 			preOrder(node.getrChild());
 		}
