@@ -9,7 +9,9 @@ package com.cdac.ads.main;
 
 import java.util.Scanner;
 
-public class HashAppMain {
+import com.cdac.ads.avltree.AVLTree;
+
+public class HashAppMain{
 
 	public static void main(String[] args) {
 		header();
@@ -27,6 +29,15 @@ public class HashAppMain {
 				try {
 					switch (Integer.parseInt(scan.nextLine())) {
 					case 1:
+						AVLTree<Integer> tree = new AVLTree<>();
+						tree.node = tree.addInTree(tree.node, 10);
+						tree.node = tree.addInTree(tree.node, 20);
+						tree.node = tree.addInTree(tree.node, 30);
+						tree.node = tree.addInTree(tree.node, 40);
+						tree.node = tree.addInTree(tree.node, 50);
+						tree.node = tree.addInTree(tree.node, 25);
+						System.out.println("Preorder traversal" + " of constructed tree is : ");
+						tree.preOrder(tree.node);
 						break;
 					case 2:
 						break;

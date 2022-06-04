@@ -2,19 +2,15 @@ package com.cdac.ads.avltree;
 
 import com.cdac.ads.avlnode.AVLNode;
 
-public class AVLTree implements AVLTreeINTF {
+public class AVLTree<T extends Object> {//implements AVLTreeINTF {
 
-	public AVLNode node;
-	
-	public AVLTree(AVLNode node) {
-		super();
-		this.node = node;
-	}
+	public AVLNode<T> node;
 
-	@Override
-	public AVLNode addInTree(AVLNode node, int keyHT) {
+	//@Override
+	public AVLNode<T> addInTree(AVLNode<T> node, int keyHT) {
 		if (node == null) {
-			return (new AVLNode(keyHT));
+			AVLNode<T> root = new AVLNode<T>(keyHT,null);
+			return root;
 		}
 
 		if (keyHT < node.getKeyHT())
@@ -52,20 +48,20 @@ public class AVLTree implements AVLTreeINTF {
 		return node;
 	}
 
-	@Override
-	public AVLNode removeFromTree(int keyHT) {
+	//@Override
+	public AVLNode<T> removeFromTree(int keyHT) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	//@Override
 	public boolean searchKey(int keyHT) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	// method to get the height of the tree
-	public int heightOfTree(AVLNode node) {
+	public int heightOfTree(AVLNode<T> node) {
 		if (node == null) {
 			return 0;
 		}
@@ -77,9 +73,9 @@ public class AVLTree implements AVLTreeINTF {
 		return (a > b) ? a : b;
 	}
 
-	public AVLNode rightRotateTree(AVLNode gParent) {
-		AVLNode parent = gParent.getlChild();
-		AVLNode parentRChild = parent.getrChild();
+	public AVLNode<T> rightRotateTree(AVLNode<T> gParent) {
+		AVLNode<T> parent = gParent.getlChild();
+		AVLNode<T> parentRChild = parent.getrChild();
 
 		// Perform rotation
 		parent.setrChild(gParent);
@@ -94,9 +90,9 @@ public class AVLTree implements AVLTreeINTF {
 	}
 
 	// method to rotate right
-	public AVLNode leftRotateTree(AVLNode gParent) {
-		AVLNode parent = gParent.getrChild();
-		AVLNode parentLChild = parent.getlChild();
+	public AVLNode<T> leftRotateTree(AVLNode<T> gParent) {
+		AVLNode<T> parent = gParent.getrChild();
+		AVLNode<T> parentLChild = parent.getlChild();
 
 		// Perform rotation
 		parent.setlChild(gParent);
@@ -111,7 +107,7 @@ public class AVLTree implements AVLTreeINTF {
 	}
 
 	// Get Balance factor of node N
-	int getBalanceFactor(AVLNode node) {
+	int getBalanceFactor(AVLNode<T> node) {
 		if (node == null)
 			return 0;
 
@@ -119,7 +115,7 @@ public class AVLTree implements AVLTreeINTF {
 	}
 
 	// TODO To be removed after AVL Testing
-	public void preOrder(AVLNode node) {
+	public void preOrder(AVLNode<T> node) {
 		if (node != null) {
 			System.out.print(node.getKeyHT() + " ");
 			preOrder(node.getlChild());

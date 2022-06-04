@@ -1,16 +1,18 @@
 package com.cdac.ads.avlnode;
 
-public class AVLNode {
+public class AVLNode<T extends Object> {
 	int keyHT;
 	int height;
-	AVLNode lChild;
-	AVLNode rChild;
+	AVLNode<T> lChild;
+	AVLNode<T> rChild;
+	T value;
 
-	public AVLNode(int keyHT) {
+	public AVLNode(int keyHT, T value) {
 		this.keyHT = keyHT;
 		this.height = 1;
 		this.lChild = null;
 		this.rChild = null;
+		this.value = value;
 	}
 
 	public int getKeyHT() {
@@ -29,19 +31,19 @@ public class AVLNode {
 		this.height = height;
 	}
 
-	public AVLNode getlChild() {
+	public AVLNode<T> getlChild() {
 		return lChild;
 	}
 
-	public void setlChild(AVLNode lChild) {
+	public void setlChild(AVLNode<T> lChild) {
 		this.lChild = lChild;
 	}
 
-	public AVLNode getrChild() {
+	public AVLNode<T> getrChild() {
 		return rChild;
 	}
 
-	public void setrChild(AVLNode rChild) {
+	public void setrChild(AVLNode<T> rChild) {
 		this.rChild = rChild;
 	}
 
