@@ -8,7 +8,7 @@ import com.cdac.ads.avltree.AVLTree;
 
 public class HashTable<T extends Object> {
 	// bucketArray is used to store array of chains
-	private ArrayList<HashTableNode<Integer, T>> bucketArray;
+	private ArrayList<HashTableNode<T>> bucketArray;
 	
 	private AVLTree<T> tree;
 
@@ -55,7 +55,7 @@ public class HashTable<T extends Object> {
 		int hashCode = hashCode(key);
 
 		if (bucketArray.get(bucketIndex) == null) {
-			HashTableNode<Integer, T> newNode = new HashTableNode<Integer, T>(key, value, hashCode);
+			HashTableNode<T> newNode = new HashTableNode<T>(key, value, hashCode);
 			bucketArray.set(bucketIndex, newNode);
 			//size++;
 			//return;
@@ -75,14 +75,14 @@ public class HashTable<T extends Object> {
 		// If load factor goes beyond threshold, then
 		// double hash table size
 		if ((1.0 * size) / numBuckets >= 0.7) {
-			ArrayList<HashTableNode<Integer, T>> oldBucketArray = bucketArray;
+			ArrayList<HashTableNode<T>> oldBucketArray = bucketArray;
 			bucketArray = new ArrayList<>();
 			numBuckets = 2 * numBuckets;
 			size = 0;
 			for (int i = 0; i < numBuckets; i++) {
 				bucketArray.add(null);
 			}
-			for (HashTableNode<Integer, T> hashNode : oldBucketArray) {
+			for (HashTableNode<T> hashNode : oldBucketArray) {
 				if (hashNode != null) {
 					if (hashNode.next != null) {
 						AVLNode<T> travNode = hashNode.next;
@@ -107,7 +107,7 @@ public class HashTable<T extends Object> {
 
 	public void display() {
 		AVLTree<T> avlTree = new AVLTree<>();
-		for (HashTableNode<Integer, T> h : this.bucketArray) {
+		for (HashTableNode<T> h : this.bucketArray) {
 			if (h != null) {
 				System.out.println(h.getValue());
 				if (h.next != null) {
@@ -116,9 +116,11 @@ public class HashTable<T extends Object> {
 			}
 		}
 	}
+	
+	//TODO This method will be modified for calling search functionality as well.
 	public boolean checkForDuplicateKey(Integer key) {
 		AVLTree<T> avlTree = new AVLTree<>();
-		for (HashTableNode<Integer, T> h : this.bucketArray) {
+		for (HashTableNode<T> h : this.bucketArray) {
 			if (h != null){
 				if(h.getKey()!=key) {
 					if (h.next != null) {
