@@ -1,4 +1,4 @@
-package com.cdac.ads.custom_exception;
+package com.cdac.ads.customexception;
 
 @SuppressWarnings("serial")
 public class HashTableCustomException extends Exception {
