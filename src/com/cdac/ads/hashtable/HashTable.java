@@ -116,23 +116,42 @@ public class HashTable<T extends Object> {
 			}
 		}
 	}
-	
-	//TODO This method will be modified for calling search functionality as well.
-	public boolean checkForDuplicateKey(Integer key) {
+
+	public boolean checkDuplicateKeyUpdateValue(Integer key, T value) {
 		AVLTree<T> avlTree = new AVLTree<>();
 		for (HashTableNode<T> h : this.bucketArray) {
 			if (h != null){
 				if(h.getKey()!=key) {
 					if (h.next != null) {
-						if(avlTree.preOrderForDuplicateCheck(h.next , key)) {
+						if(avlTree.bsForDuplicateCheck(h.next , key, value)) {
 							return true;
 						}
 					}
 				}else {
+					h.setValue(value);
 					return true;
 				}
 			}
 		}
 		return false;
+	}
+
+	public T searchKeyValue(Integer key) {
+		AVLTree<T> avlTree = new AVLTree<>();
+		for (HashTableNode<T> h : this.bucketArray) {
+			if (h != null){
+				if(h.getKey()!=key) {
+					if (h.next != null) {
+						T value = avlTree.searchKeyInTree(h.next , key);
+						if(value!=null) {
+							return value;
+						}	
+					}
+				}else {
+					return h.getValue();
+				}
+			}
+		}
+		return null;
 	}
 }

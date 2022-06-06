@@ -123,15 +123,35 @@ public class AVLTree<T extends Object> {//implements AVLTreeINTF {
 		}
 	}
 	
-	public boolean preOrderForDuplicateCheck(AVLNode<T> node,Integer key) {
-		if (node != null) {
-			if(node.getKeyHT() == key) {
-				return true;
-			}
-			preOrder(node.getlChild());
-			preOrder(node.getrChild());
+	public boolean bsForDuplicateCheck(AVLNode<T> node,Integer key, T value) {
+
+		if(node == null) {
+			return false;
 		}
-		return false;
+		if(node.getKeyHT() == key) {
+			node.setValue(value);
+			return true;
+		}
+		if(node.getKeyHT()<key) {
+			return bsForDuplicateCheck(node.getlChild(),key,value);
+		}else {
+			return bsForDuplicateCheck(node.getrChild(), key,value);
+		}
+		
 	}
 
+	public T searchKeyInTree(AVLNode<T> node, Integer key) {
+		if (node == null) {
+			return null;
+		}
+		if (node.getKeyHT() == key) {
+			return node.getValue();
+		}
+		if(node.getKeyHT()<key) {
+			return searchKeyInTree(node.getlChild(),key);
+		}else {
+			return searchKeyInTree(node.getrChild(), key);
+		}
+		
+	}
 }

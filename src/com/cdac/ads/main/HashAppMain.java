@@ -19,7 +19,6 @@ public class HashAppMain{
 	private static HashTable<String> hashTableStr;
 	private static HashTable<Double> hashTableDouble;
 	
-
 	public static void main(String[] args) {
 		header();
 		PopulatedTable pT = new PopulatedTable();
@@ -29,8 +28,10 @@ public class HashAppMain{
 		System.out.println("1. Integer Values");
 		System.out.println("2. String Values");
 		System.out.println("3. Double Values");
-		
+		System.out.print("Enter Your Choice: ");
+
 		try(Scanner scan = new Scanner(System.in)){
+			System.out.println();
 			switch(Integer.parseInt(scan.nextLine())) {
 			case 1:
 				hashTableInt = new HashTable<Integer>();
@@ -64,6 +65,6 @@ public class HashAppMain{
 		System.out.println("Default Load Factor: 0.75");
 		System.out.println("Default BucketArray Size: 5");
 		System.out.println("Prepopulated Elements for user convenience: n = 2");
-		System.out.println("\n");
+		System.out.println();
 	}
 }
