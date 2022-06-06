@@ -122,4 +122,16 @@ public class AVLTree<T extends Object> {//implements AVLTreeINTF {
 			preOrder(node.getrChild());
 		}
 	}
+	
+	public boolean preOrderForDuplicateCheck(AVLNode<T> node,Integer key) {
+		if (node != null) {
+			if(node.getKeyHT() == key) {
+				return true;
+			}
+			preOrder(node.getlChild());
+			preOrder(node.getrChild());
+		}
+		return false;
+	}
+
 }

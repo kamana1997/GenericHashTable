@@ -9,6 +9,8 @@ import com.cdac.ads.avltree.AVLTree;
 public class HashTable<T extends Object> {
 	// bucketArray is used to store array of chains
 	private ArrayList<HashTableNode<Integer, T>> bucketArray;
+	
+	private AVLTree<T> tree;
 
 	// Current capacity of array list
 	private int numBuckets;
@@ -18,6 +20,7 @@ public class HashTable<T extends Object> {
 
 	public HashTable() {
 		bucketArray = new ArrayList<>();
+		tree = new AVLTree<T>();
 		numBuckets = 5;
 		size = 0;
 
@@ -64,9 +67,8 @@ public class HashTable<T extends Object> {
 			} else {
 				root = bucketArray.get(bucketIndex).next;
 			}
-			AVLTree<T> tree = new AVLTree<T>();
 			root = tree.addInTree(root, key,value);
-			//size++;
+			bucketArray.get(bucketIndex).next = root;
 		}
 
 		size += 1;
@@ -113,5 +115,22 @@ public class HashTable<T extends Object> {
 				}
 			}
 		}
+	}
+	public boolean checkForDuplicateKey(Integer key) {
+		AVLTree<T> avlTree = new AVLTree<>();
+		for (HashTableNode<Integer, T> h : this.bucketArray) {
+			if (h != null){
+				if(h.getKey()!=key) {
+					if (h.next != null) {
+						if(avlTree.preOrderForDuplicateCheck(h.next , key)) {
+							return true;
+						}
+					}
+				}else {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

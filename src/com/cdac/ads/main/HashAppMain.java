@@ -34,16 +34,27 @@ public class HashAppMain{
 						hashTable.add(11,"xx11");
 						hashTable.add(16,"k16");
 						hashTable.add(21,"Hk21");
-						/*
-						 * hashTable.add(2,"Hik2"); hashTable.add(3,"Hik3"); hashTable.add(4,"Hik4");
-						 * hashTable.add(5,"Hik5"); hashTable.add(7,"Hik7"); hashTable.add(8,"Hik8");
-						 * hashTable.add(9,"Hik9"); hashTable.add(10,"Hik10"); hashTable.add(12,"yy12");
-						 * hashTable.add(13,"ardik13"); hashTable.add(14,"rdik14");
-						 * hashTable.add(15,"ik15"); hashTable.add(16,"k16"); hashTable.add(17,"Ha17");
-						 * hashTable.add(18,"Har18"); hashTable.add(19,"Haik19");
-						 * hashTable.add(20,"Hak20"); hashTable.add(21,"Hk21");
-						 * hashTable.add(22,"Hik22");
-						 */
+						hashTable.add(2,"Hik2"); 
+						hashTable.add(3,"Hik3"); 
+						hashTable.add(4,"Hik4");
+						hashTable.add(5,"Hik5"); hashTable.add(7,"Hik7"); hashTable.add(8,"Hik8");
+						hashTable.add(9,"Hik9"); hashTable.add(10,"Hik10"); hashTable.add(12,"yy12");
+						hashTable.add(13,"ardik13"); hashTable.add(14,"rdik14");
+						hashTable.add(15,"ik15"); hashTable.add(16,"k16"); hashTable.add(17,"Ha17");
+						hashTable.add(18,"Ha17");hashTable.add(19,"Ha17");
+						hashTable.add(20,"Hak20"); hashTable.add(21,"Hk21");
+						hashTable.add(22,"Hik22");hashTable.add(22,"Hik22");
+
+						//call populate method of String Type
+						System.out.println("Enter Key");
+						Integer key = Integer.parseInt(scan.nextLine());
+						if(!hashTable.checkForDuplicateKey(key)) {
+							System.out.println("Enter Value");
+							hashTable.add(key, scan.nextLine());
+						}else {
+							//TODO Custom Exception
+							System.out.println("Element Duplicate --> Not Added");
+						} 
 						break;
 					case 2:
 						
