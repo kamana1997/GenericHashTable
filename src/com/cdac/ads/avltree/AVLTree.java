@@ -1,12 +1,10 @@
 package com.cdac.ads.avltree;
 
-import com.cdac.ads.avlnode.AVLNode;
-
-public class AVLTree<T extends Object> {//implements AVLTreeINTF {
+public class AVLTree<T extends Object> implements AVLTreeINTF<T> {
 
 	public AVLNode<T> node;
 
-	//@Override
+	@Override
 	public AVLNode<T> addInTree(AVLNode<T> node, int keyHT, T value) {
 		if (node == null) {
 			AVLNode<T> root = new AVLNode<T>(keyHT,value);
@@ -48,16 +46,30 @@ public class AVLTree<T extends Object> {//implements AVLTreeINTF {
 		return node;
 	}
 
-	//@Override
+	@Override
+	public T searchKeyInTree(AVLNode<T> node, Integer key, T value) {
+		if (node == null) {
+			return null;
+		}
+		if (node.getKeyHT() == key) {
+			if(value!=null) {
+				node.setValue(value);
+				return value;
+			}
+			return node.getValue();
+		}
+		if(node.getKeyHT()<key) {
+			return searchKeyInTree(node.getlChild(),key,value);
+		}else {
+			return searchKeyInTree(node.getrChild(), key, value);
+		}
+		
+	}
+
+	@Override
 	public AVLNode<T> removeFromTree(int keyHT) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	//@Override
-	public boolean searchKey(int keyHT) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	// method to get the height of the tree
@@ -114,44 +126,12 @@ public class AVLTree<T extends Object> {//implements AVLTreeINTF {
 		return heightOfTree(node.getlChild()) - heightOfTree(node.getrChild());
 	}
 
-	// TODO To be removed after AVL Testing
+	// called by display function of HashTable
 	public void preOrder(AVLNode<T> node) {
 		if (node != null) {
-			System.out.println(node.getKeyHT() + " " + node.getValue());
+			System.out.println(node.getKeyHT() + " -> " + node.getValue());
 			preOrder(node.getlChild());
 			preOrder(node.getrChild());
 		}
-	}
-	
-	public boolean bsForDuplicateCheck(AVLNode<T> node,Integer key, T value) {
-
-		if(node == null) {
-			return false;
-		}
-		if(node.getKeyHT() == key) {
-			node.setValue(value);
-			return true;
-		}
-		if(node.getKeyHT()<key) {
-			return bsForDuplicateCheck(node.getlChild(),key,value);
-		}else {
-			return bsForDuplicateCheck(node.getrChild(), key,value);
-		}
-		
-	}
-
-	public T searchKeyInTree(AVLNode<T> node, Integer key) {
-		if (node == null) {
-			return null;
-		}
-		if (node.getKeyHT() == key) {
-			return node.getValue();
-		}
-		if(node.getKeyHT()<key) {
-			return searchKeyInTree(node.getlChild(),key);
-		}else {
-			return searchKeyInTree(node.getrChild(), key);
-		}
-		
 	}
 }

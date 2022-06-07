@@ -1,4 +1,4 @@
-package com.cdac.ads.avlnode;
+package com.cdac.ads.avltree;
 
 public class AVLNode<T extends Object> {
 	int keyHT;

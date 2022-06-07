@@ -3,10 +3,10 @@ package com.cdac.ads.hashtable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import com.cdac.ads.avlnode.AVLNode;
+import com.cdac.ads.avltree.AVLNode;
 import com.cdac.ads.avltree.AVLTree;
 
-public class HashTable<T extends Object> {
+public class HashTable<T extends Object> implements HashTableINTF<T>{
 	// bucketArray is used to store array of chains
 	private ArrayList<HashTableNode<T>> bucketArray;
 	
@@ -30,24 +30,7 @@ public class HashTable<T extends Object> {
 		}
 	}
 
-	public int getSize() {
-		return this.size;
-	}
-
-	private final int hashCode(Integer key) {
-		return Objects.hashCode(key);
-	}
-
-	// This implements hash function to find index
-	// for a key
-	private int getBucketIndex(Integer key) {
-		int hashCode = hashCode(key);
-		int index = hashCode % numBuckets;
-		// key.hashCode() could be negative.
-		index = index < 0 ? index * -1 : index;
-		return index;
-	}
-
+	@Override
 	public void add(Integer key, T value) {
 
 		// Find head of chain for given key
@@ -91,25 +74,16 @@ public class HashTable<T extends Object> {
 					add(hashNode.getKey(), hashNode.getValue());
 				}
 			}
-			// adding the node which have colliding bucket index.
-			//add(key, value);
-		}
-
-	}
-
-	public void preOrderAdd(AVLNode<T> node) {
-		if (node != null) {
-			add(node.getKeyHT(), node.getValue());
-			preOrderAdd(node.getlChild());
-			preOrderAdd(node.getrChild());
 		}
 	}
 
+	//called by operations class to display elements of HashTable
+	@Override
 	public void display() {
 		AVLTree<T> avlTree = new AVLTree<>();
 		for (HashTableNode<T> h : this.bucketArray) {
 			if (h != null) {
-				System.out.println(h.getValue());
+				System.out.println(h.getKey() + " -> " + h.getValue());
 				if (h.next != null) {
 					avlTree.preOrder(h.next);
 				}
@@ -117,13 +91,17 @@ public class HashTable<T extends Object> {
 		}
 	}
 
+	//@Override
+	//public T removedNodeValue(Integer key){}
+
+	@Override
 	public boolean checkDuplicateKeyUpdateValue(Integer key, T value) {
 		AVLTree<T> avlTree = new AVLTree<>();
 		for (HashTableNode<T> h : this.bucketArray) {
 			if (h != null){
 				if(h.getKey()!=key) {
 					if (h.next != null) {
-						if(avlTree.bsForDuplicateCheck(h.next , key, value)) {
+						if(avlTree.searchKeyInTree(h.next , key, value) == value) {
 							return true;
 						}
 					}
@@ -136,15 +114,16 @@ public class HashTable<T extends Object> {
 		return false;
 	}
 
-	public T searchKeyValue(Integer key) {
+	@Override
+	public T searchKeyValue(Integer key, T value) {
 		AVLTree<T> avlTree = new AVLTree<>();
 		for (HashTableNode<T> h : this.bucketArray) {
 			if (h != null){
 				if(h.getKey()!=key) {
 					if (h.next != null) {
-						T value = avlTree.searchKeyInTree(h.next , key);
+						T valueReturned = avlTree.searchKeyInTree(h.next , key, value);
 						if(value!=null) {
-							return value;
+							return valueReturned;
 						}	
 					}
 				}else {
@@ -153,5 +132,32 @@ public class HashTable<T extends Object> {
 			}
 		}
 		return null;
+	}
+
+	public int getSize() {
+		return this.size;
+	}
+
+	private final int hashCode(Integer key) {
+		return Objects.hashCode(key);
+	}
+
+	// This implements hash function to find index
+	// for a key
+	private int getBucketIndex(Integer key) {
+		int hashCode = hashCode(key);
+		int index = hashCode % numBuckets;
+		// key.hashCode() could be negative.
+		index = index < 0 ? index * -1 : index;
+		return index;
+	}
+
+	//called when traversing in the tree while rehashing
+	public void preOrderAdd(AVLNode<T> node) {
+		if (node != null) {
+			add(node.getKeyHT(), node.getValue());
+			preOrderAdd(node.getlChild());
+			preOrderAdd(node.getrChild());
+		}
 	}
 }

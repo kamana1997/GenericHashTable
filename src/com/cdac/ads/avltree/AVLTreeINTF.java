@@ -1,15 +1,13 @@
 package com.cdac.ads.avltree;
 
-import com.cdac.ads.avlnode.AVLNode;
-
 public interface AVLTreeINTF<T> {
 	
-	//adds a node in the avl tree.
-	public AVLNode<T> addInTree(AVLNode<T> root, int keyHT);
+	//adds a node in the AVL tree.
+	public AVLNode<T> addInTree(AVLNode<T> node, int keyHT, T value);
 	
-	//removes a node from the avl tree.
-	public AVLNode<T> removeFromTree(int keyHT);
+	//removes a node from the AVL tree.
+	public T searchKeyInTree(AVLNode<T> node, Integer key, T value);
 	
 	//checks if a key exists or not.
-	public boolean searchKey(int keyHT);
+	public AVLNode<T> removeFromTree(int keyHT);
 }
