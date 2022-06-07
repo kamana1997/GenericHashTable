@@ -5,7 +5,7 @@ import java.util.Scanner;
 import com.cdac.ads.customexception.HashTableCustomException;
 import com.cdac.ads.hashtable.HashTable;
 
-public class HashTableOperations {
+public class HashTableOperations<T> {
 	public void integerTable(Scanner scan, HashTable<Integer> hashTable) {
 		boolean flag = true;
 		while (flag) {
@@ -68,26 +68,33 @@ public class HashTableOperations {
 					Integer key = Integer.parseInt(scan.nextLine());
 					System.out.println("Enter Value");
 					String value = scan.nextLine();
+					
 					if (!hashTable.checkDuplicateKeyUpdateValue(key,value)) {
 						hashTable.add(key,value);
 					} else {
 						throw new HashTableCustomException("Exisiting Value at "+key+" updated.");
 					}
 					break;
+				
 				case 2:
+					
 					System.out.println("Enter key to be searched");
 					String valueReturn = hashTable.searchKeyValue(Integer.parseInt(scan.nextLine()),null);
+					
 					if(valueReturn != null) {
 						System.out.println("Key Found! Value = " + valueReturn);
 					}else {
 						throw new HashTableCustomException("Key Does Not Exist");
 					}
 					break;
+				
 				case 3:
 					break;
+				
 				case 4:
 					hashTable.display();
 					break;
+				
 				case 5:
 					System.out.print("Thank You! See you again!");
 					flag = false;
@@ -111,6 +118,7 @@ public class HashTableOperations {
 					System.out.println("Enter Key");
 					Integer key = Integer.parseInt(scan.nextLine());
 					System.out.println("Enter Value");
+					
 					Double value = Double.parseDouble(scan.nextLine());
 					if (!hashTable.checkDuplicateKeyUpdateValue(key,value)) {
 						hashTable.add(key,value);
@@ -118,20 +126,25 @@ public class HashTableOperations {
 						throw new HashTableCustomException("Exisiting Value at "+key+" updated.");
 					}
 					break;
+				
 				case 2:
 					System.out.println("Enter key to be searched");
 					Double valueReturn = hashTable.searchKeyValue(Integer.parseInt(scan.nextLine()),null);
+					
 					if(valueReturn != null) {
 						System.out.println("Key Found! Value = " + valueReturn);
 					}else {
 						throw new HashTableCustomException("Key Does Not Exist");
 					}
 					break;
+				
 				case 3:
 					break;
+				
 				case 4:
 					hashTable.display();
 					break;
+				
 				case 5:
 					System.out.print("Thank You! See you again!");
 					flag = false;

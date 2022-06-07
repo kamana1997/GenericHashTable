@@ -9,5 +9,5 @@ public interface AVLTreeINTF<T> {
 	public T searchKeyInTree(AVLNode<T> node, Integer key, T value);
 	
 	//checks if a key exists or not.
-	public AVLNode<T> removeFromTree(int keyHT);
+	public AVLNode<T> deleteNode(AVLNode<T> root, int keyHT);
 }

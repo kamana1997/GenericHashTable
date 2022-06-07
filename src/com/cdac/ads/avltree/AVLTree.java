@@ -7,14 +7,14 @@ public class AVLTree<T extends Object> implements AVLTreeINTF<T> {
 	@Override
 	public AVLNode<T> addInTree(AVLNode<T> node, int keyHT, T value) {
 		if (node == null) {
-			AVLNode<T> root = new AVLNode<T>(keyHT,value);
+			AVLNode<T> root = new AVLNode<T>(keyHT, value);
 			return root;
 		}
 
 		if (keyHT < node.getKeyHT())
-			node.setlChild(addInTree(node.getlChild(), keyHT,value));
+			node.setlChild(addInTree(node.getlChild(), keyHT, value));
 		else if (keyHT > node.getKeyHT())
-			node.setrChild(addInTree(node.getrChild(), keyHT,value));
+			node.setrChild(addInTree(node.getrChild(), keyHT, value));
 		else
 			return node;
 
@@ -52,24 +52,114 @@ public class AVLTree<T extends Object> implements AVLTreeINTF<T> {
 			return null;
 		}
 		if (node.getKeyHT() == key) {
-			if(value!=null) {
+			if (value != null) {
 				node.setValue(value);
 				return value;
 			}
 			return node.getValue();
 		}
-		if(node.getKeyHT()<key) {
-			return searchKeyInTree(node.getlChild(),key,value);
-		}else {
+		if (node.getKeyHT() < key) {
+			return searchKeyInTree(node.getlChild(), key, value);
+		} else {
 			return searchKeyInTree(node.getrChild(), key, value);
 		}
-		
+
 	}
 
 	@Override
-	public AVLNode<T> removeFromTree(int keyHT) {
-		// TODO Auto-generated method stub
-		return null;
+	public AVLNode<T> deleteNode(AVLNode<T> root, int key) {
+
+		// STEP 1: PERFORM STANDARD BST DELETE
+		if (root == null) {
+			return root;
+		}
+
+		// If the key to be deleted is smaller than
+		// the root's key, then it lies in left subtree
+		if (key < root.getKeyHT()) {
+			root.lChild = deleteNode(root.lChild, key);
+		}
+
+		// If the key to be deleted is greater than the
+		// root's key, then it lies in right subtree
+		else if (key > root.getKeyHT()) {
+			root.rChild = deleteNode(root.rChild, key);
+		}
+
+		// if key is same as root's key, then this is the node
+		// to be deleted
+		else {
+			// node with only one child or no child
+			if ((root.lChild == null) || (root.rChild == null)) {
+
+				AVLNode<T> temp = null;
+
+				if (temp == root.lChild) {
+					temp = root.rChild;
+				} else {
+					temp = root.lChild;
+				}
+
+				// No child case
+				if (temp == null) {
+					temp = root;
+
+					// here root(leaf) node can be deleted
+					root = null;
+				} else 
+					// One child case
+					// Copy the contents of the non-empty child
+					root = temp;
+			} else {
+				// node with two children: Get the inorder
+
+				// successor (smallest in the right subtree)
+				AVLNode<T> temp = minValueNode(root.rChild);
+
+				// Copy the in-order successor's data to this node
+				root.setKeyHT(temp.getKeyHT());
+				root.setValue(temp.getValue());
+
+				// Delete the in-order successor
+				root.rChild = deleteNode(root.rChild, temp.getKeyHT());
+			}
+		}
+
+		// If the tree had only one node then return null as the only node is deleted.
+		if (root == null) {
+			return root;
+		}
+			
+
+		// STEP 2: UPDATE HEIGHT OF THE CURRENT NODE
+		root.setHeight(max(heightOfTree(root.lChild), heightOfTree(root.rChild)) + 1);
+
+		// STEP 3: GET THE BALANCE FACTOR OF THIS NODE (to check whether
+		// this node became unbalanced)
+		int balance = getBalanceFactor(root);
+
+		// If this node becomes unbalanced, then there are 4 cases
+		// Left Left Case
+		if (balance > 1 && getBalanceFactor(root.lChild) >= 0)
+			return rightRotateTree(root);
+
+		// Left Right Case
+		if (balance > 1 && getBalanceFactor(root.lChild) < 0) {
+			root.lChild = leftRotateTree(root.lChild);
+			return rightRotateTree(root);
+		}
+
+		// Right Right Case
+		if (balance < -1 && getBalanceFactor(root.rChild) <= 0)
+			return leftRotateTree(root);
+
+		// Right Left Case
+		if (balance < -1 && getBalanceFactor(root.rChild) > 0) {
+			root.setrChild(rightRotateTree(root.rChild));
+			return leftRotateTree(root);
+		}
+
+		return root;
 	}
 
 	// method to get the height of the tree
@@ -126,6 +216,16 @@ public class AVLTree<T extends Object> implements AVLTreeINTF<T> {
 		return heightOfTree(node.getlChild()) - heightOfTree(node.getrChild());
 	}
 
+	public AVLNode<T> minValueNode(AVLNode<T> node) {
+		AVLNode<T> current = node;
+
+		/* loop down to find the leftmost leaf */
+		while (current.getlChild() != null)
+			current = current.getlChild();
+
+		return current;
+	}
+
 	// called by display function of HashTable
 	public void preOrder(AVLNode<T> node) {
 		if (node != null) {
@@ -134,4 +234,5 @@ public class AVLTree<T extends Object> implements AVLTreeINTF<T> {
 			preOrder(node.getrChild());
 		}
 	}
+
 }
