@@ -5,7 +5,7 @@ import java.util.Scanner;
 import com.cdac.ads.customexception.HashTableCustomException;
 import com.cdac.ads.hashtable.HashTable;
 
-public class HashTableOperations<T> {
+public class HashTableOperations {
 	public void integerTable(Scanner scan, HashTable<Integer> hashTable) {
 		boolean flag = true;
 		while (flag) {
