@@ -77,27 +77,27 @@ public class AVLTree<T extends Object> implements AVLTreeINTF<T> {
 		// If the key to be deleted is smaller than
 		// the root's key, then it lies in left subtree
 		if (key < root.getKeyHT()) {
-			root.lChild = deleteNode(root.lChild, key);
+			root.setlChild(deleteNode(root.getlChild(), key));
 		}
 
 		// If the key to be deleted is greater than the
 		// root's key, then it lies in right subtree
 		else if (key > root.getKeyHT()) {
-			root.rChild = deleteNode(root.rChild, key);
+			root.setrChild(deleteNode(root.getrChild(), key));
 		}
 
 		// if key is same as root's key, then this is the node
 		// to be deleted
 		else {
 			// node with only one child or no child
-			if ((root.lChild == null) || (root.rChild == null)) {
+			if ((root.getlChild() == null) || (root.getrChild() == null)) {
 
 				AVLNode<T> temp = null;
 
-				if (temp == root.lChild) {
-					temp = root.rChild;
+				if (temp == root.getlChild()) {
+					temp = root.getrChild();
 				} else {
-					temp = root.lChild;
+					temp = root.getlChild();
 				}
 
 				// No child case
@@ -114,14 +114,14 @@ public class AVLTree<T extends Object> implements AVLTreeINTF<T> {
 				// node with two children: Get the inorder
 
 				// successor (smallest in the right subtree)
-				AVLNode<T> temp = minValueNode(root.rChild);
+				AVLNode<T> temp = minValueNode(root.getrChild());
 
 				// Copy the in-order successor's data to this node
 				root.setKeyHT(temp.getKeyHT());
 				root.setValue(temp.getValue());
 
 				// Delete the in-order successor
-				root.rChild = deleteNode(root.rChild, temp.getKeyHT());
+				root.setrChild(deleteNode(root.getrChild(), temp.getKeyHT()));
 			}
 		}
 
@@ -132,7 +132,7 @@ public class AVLTree<T extends Object> implements AVLTreeINTF<T> {
 			
 
 		// STEP 2: UPDATE HEIGHT OF THE CURRENT NODE
-		root.setHeight(max(heightOfTree(root.lChild), heightOfTree(root.rChild)) + 1);
+		root.setHeight(max(heightOfTree(root.getlChild()), heightOfTree(root.getrChild())) + 1);
 
 		// STEP 3: GET THE BALANCE FACTOR OF THIS NODE (to check whether
 		// this node became unbalanced)
@@ -140,22 +140,22 @@ public class AVLTree<T extends Object> implements AVLTreeINTF<T> {
 
 		// If this node becomes unbalanced, then there are 4 cases
 		// Left Left Case
-		if (balance > 1 && getBalanceFactor(root.lChild) >= 0)
+		if (balance > 1 && getBalanceFactor(root.getlChild()) >= 0)
 			return rightRotateTree(root);
 
 		// Left Right Case
-		if (balance > 1 && getBalanceFactor(root.lChild) < 0) {
-			root.lChild = leftRotateTree(root.lChild);
+		if (balance > 1 && getBalanceFactor(root.getlChild()) < 0) {
+			root.setlChild(leftRotateTree(root.getlChild()));
 			return rightRotateTree(root);
 		}
 
 		// Right Right Case
-		if (balance < -1 && getBalanceFactor(root.rChild) <= 0)
+		if (balance < -1 && getBalanceFactor(root.getrChild()) <= 0)
 			return leftRotateTree(root);
 
 		// Right Left Case
-		if (balance < -1 && getBalanceFactor(root.rChild) > 0) {
-			root.setrChild(rightRotateTree(root.rChild));
+		if (balance < -1 && getBalanceFactor(root.getrChild()) > 0) {
+			root.setrChild(rightRotateTree(root.getrChild()));
 			return leftRotateTree(root);
 		}
 
