@@ -10,6 +10,5 @@ public interface HashTableINTF<T extends Object> {
 
 	public T searchKeyValue(Integer key, T value);
 	
-	//TODO
-	//public T removedNodeValue(Integer key);
+	public void removeNodeFromTable(Integer key);
 }

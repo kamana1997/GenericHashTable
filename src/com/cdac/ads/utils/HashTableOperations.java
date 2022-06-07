@@ -20,24 +20,34 @@ public class HashTableOperations {
 					System.out.println("Enter Value");
 					Integer value = Integer.parseInt(scan.nextLine());
 
-					if (!hashTable.checkDuplicateKeyUpdateValue(key,value)) {
+					if (!hashTable.checkDuplicateKeyUpdateValue(key, value)) {
 						hashTable.add(key, value);
-					}else {
-						throw new HashTableCustomException("Exisiting Value at "+key+" updated.");
+					} else {
+						throw new HashTableCustomException("Exisiting Value at " + key + " updated.");
 					}
 					break;
 
 				case 2:
 					System.out.println("Enter key to be searched");
-					Integer valueReturn = hashTable.searchKeyValue(Integer.parseInt(scan.nextLine()),null);
-					if(valueReturn != null) {
+					Integer valueReturn = hashTable.searchKeyValue(Integer.parseInt(scan.nextLine()), null);
+					if (valueReturn != null) {
 						System.out.println("Key Found! Value = " + valueReturn);
-					}else {
+					} else {
 						throw new HashTableCustomException("Key Does Not Exist");
 					}
 					break;
 
 				case 3:
+					System.out.println("Enter Key");
+					Integer keyDelete = Integer.parseInt(scan.nextLine());
+					Integer valueDelete = hashTable.searchKeyValue(keyDelete, null);
+					if (valueDelete != null) {
+						System.out.println("Key Found! Value = " + valueDelete);
+						hashTable.removeNodeFromTable(keyDelete);
+						System.out.println("Deleted Element");
+					} else {
+						throw new HashTableCustomException("Key Does Not Exist");
+					}
 					break;
 
 				case 4:
@@ -68,33 +78,43 @@ public class HashTableOperations {
 					Integer key = Integer.parseInt(scan.nextLine());
 					System.out.println("Enter Value");
 					String value = scan.nextLine();
-					
-					if (!hashTable.checkDuplicateKeyUpdateValue(key,value)) {
-						hashTable.add(key,value);
+
+					if (!hashTable.checkDuplicateKeyUpdateValue(key, value)) {
+						hashTable.add(key, value);
 					} else {
-						throw new HashTableCustomException("Exisiting Value at "+key+" updated.");
+						throw new HashTableCustomException("Exisiting Value at " + key + " updated.");
 					}
 					break;
-				
+
 				case 2:
-					
+
 					System.out.println("Enter key to be searched");
-					String valueReturn = hashTable.searchKeyValue(Integer.parseInt(scan.nextLine()),null);
-					
-					if(valueReturn != null) {
+					String valueReturn = hashTable.searchKeyValue(Integer.parseInt(scan.nextLine()), null);
+
+					if (valueReturn != null) {
 						System.out.println("Key Found! Value = " + valueReturn);
-					}else {
+					} else {
 						throw new HashTableCustomException("Key Does Not Exist");
 					}
 					break;
-				
+
 				case 3:
+					System.out.println("Enter Key");
+					Integer keyDelete = Integer.parseInt(scan.nextLine());
+					String valueDelete = hashTable.searchKeyValue(keyDelete, null);
+					if (valueDelete != null) {
+						System.out.println("Key Found! Value = " + valueDelete);
+						hashTable.removeNodeFromTable(keyDelete);
+						System.out.println("Deleted Element");
+					} else {
+						throw new HashTableCustomException("Key Does Not Exist");
+					}
 					break;
-				
+
 				case 4:
 					hashTable.display();
 					break;
-				
+
 				case 5:
 					System.out.print("Thank You! See you again!");
 					flag = false;
@@ -118,33 +138,43 @@ public class HashTableOperations {
 					System.out.println("Enter Key");
 					Integer key = Integer.parseInt(scan.nextLine());
 					System.out.println("Enter Value");
-					
+
 					Double value = Double.parseDouble(scan.nextLine());
-					if (!hashTable.checkDuplicateKeyUpdateValue(key,value)) {
-						hashTable.add(key,value);
+					if (!hashTable.checkDuplicateKeyUpdateValue(key, value)) {
+						hashTable.add(key, value);
 					} else {
-						throw new HashTableCustomException("Exisiting Value at "+key+" updated.");
+						throw new HashTableCustomException("Exisiting Value at " + key + " updated.");
 					}
 					break;
-				
+
 				case 2:
 					System.out.println("Enter key to be searched");
-					Double valueReturn = hashTable.searchKeyValue(Integer.parseInt(scan.nextLine()),null);
-					
-					if(valueReturn != null) {
+					Double valueReturn = hashTable.searchKeyValue(Integer.parseInt(scan.nextLine()), null);
+
+					if (valueReturn != null) {
 						System.out.println("Key Found! Value = " + valueReturn);
-					}else {
+					} else {
 						throw new HashTableCustomException("Key Does Not Exist");
 					}
 					break;
-				
+
 				case 3:
+					System.out.println("Enter Key");
+					Integer keyDelete = Integer.parseInt(scan.nextLine());
+					Double valueDelete = hashTable.searchKeyValue(keyDelete, null);
+					if (valueDelete != null) {
+						System.out.println("Key Found! Value = " + valueDelete);
+						hashTable.removeNodeFromTable(keyDelete);
+						System.out.println("Deleted Element");
+					} else {
+						throw new HashTableCustomException("Key Does Not Exist");
+					}
 					break;
-				
+
 				case 4:
 					hashTable.display();
 					break;
-				
+
 				case 5:
 					System.out.print("Thank You! See you again!");
 					flag = false;

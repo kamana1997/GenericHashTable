@@ -5,13 +5,9 @@ import com.cdac.ads.avltree.AVLNode;
 public class HashTableNode<T extends Object>{
 	private Integer key;
 	private T value;
-	final int hashCode;
 	
 	AVLNode<T> next;
 	
-	public int getHashCode() {
-		return hashCode;
-	}
 	public Integer getKey() {
 		return key;
 	}
@@ -26,11 +22,10 @@ public class HashTableNode<T extends Object>{
 		this.value = value;
 	}
 	
-	public HashTableNode(Integer key, T value, int hashCode) {
+	public HashTableNode(Integer key, T value) {
 		super();
 		this.key = key;
 		this.value = value;
-		this.hashCode = hashCode;
 		this.next = null;
 	}
 }
