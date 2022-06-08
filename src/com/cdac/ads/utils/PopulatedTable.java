@@ -20,7 +20,6 @@ public class PopulatedTable {
 		hTI.add(1, 9876);
 		hTI.add(9, 5432);
 		hTI.add(19, 7331);
-		//hTI.add(9, 5433);
 		hTI.add(5, 6434);
 		hTI.add(15, 9935);
 		
