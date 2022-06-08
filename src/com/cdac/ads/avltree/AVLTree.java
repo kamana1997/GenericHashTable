@@ -65,7 +65,7 @@ public class AVLTree<T extends Object> implements AVLTreeINTF<T> {
 			}
 			return node.getValue();
 		}
-		if (node.getKeyHT() < key) {
+		if (key < node.getKeyHT()) {
 			return searchKeyInTree(node.getlChild(), key, value);
 		} else {
 			return searchKeyInTree(node.getrChild(), key, value);
