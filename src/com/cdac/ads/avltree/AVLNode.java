@@ -1,3 +1,10 @@
+/*
+ * @Author				: Hardik Agarwal [220340120083] & Joy Pahari [220340120092]
+ * @ProjectTitle		: ADS-Mini Project 
+ * @ProblemStatement	: Implement Generic HashTable that uses Chaining for Collision Handling
+ * @Date				: 01-06-2022 -> 09-06-2022
+ */
+
 package com.cdac.ads.avltree;
 
 public class AVLNode<T extends Object> {
@@ -7,6 +14,7 @@ public class AVLNode<T extends Object> {
 	AVLNode<T> rChild;
 	T value;
 
+	// Parameterized constructor
 	public AVLNode(int keyHT, T value) {
 		this.keyHT = keyHT;
 		this.height = 1;
