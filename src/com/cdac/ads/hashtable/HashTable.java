@@ -1,3 +1,10 @@
+/*
+ * @Author				: Hardik Agarwal [220340120083] & Joy Pahari [220340120092]
+ * @ProjectTitle		: ADS-Mini Project 
+ * @ProblemStatement	: Implement Generic HashTable that uses Chaining for Collision Handling
+ * @Date				: 01-06-2022 -> 09-06-2022
+ */
+
 package com.cdac.ads.hashtable;
 
 import java.util.ArrayList;
@@ -19,6 +26,7 @@ public class HashTable<T extends Object> implements HashTableINTF<T> {
 	private int size;
 	private int numDeleted;
 
+	// Parameterless constructor
 	public HashTable() {
 		bucketArray = new ArrayList<>();
 		tree = new AVLTree<T>();
@@ -26,7 +34,7 @@ public class HashTable<T extends Object> implements HashTableINTF<T> {
 		size = 0;
 		numDeleted = 0;
 
-		// Creating empty buckets
+		// Creating empty buckets.
 		for (int i = 0; i < numBuckets; i++) {
 			bucketArray.add(null);
 		}
@@ -35,7 +43,7 @@ public class HashTable<T extends Object> implements HashTableINTF<T> {
 	@Override
 	public void add(Integer key, T value) {
 
-		// Find head of chain for given key
+		// Find head of chain for given key.
 		int bucketIndex = getBucketIndex(key);
 
 		if (bucketArray.get(bucketIndex) == null) {
@@ -57,7 +65,7 @@ public class HashTable<T extends Object> implements HashTableINTF<T> {
 
 		size += 1;
 		// If load factor goes beyond threshold, then
-		// double hash table size
+		// double hash table size.
 		if ((1.0 * (size + numDeleted)) / numBuckets >= 0.7) {
 			ArrayList<HashTableNode<T>> oldBucketArray = bucketArray;
 			bucketArray = new ArrayList<>();
@@ -78,16 +86,20 @@ public class HashTable<T extends Object> implements HashTableINTF<T> {
 		}
 	}
 
-	// called by operations class to display elements of HashTable
+	// Used by operations class to display elements of hashTable.
 	@Override
 	public void display() {
 		AVLTree<T> avlTree = new AVLTree<>();
+		System.out.println("\nHashTable Element representation : [Key, Value]");
+		System.out.println("AVLTree Element representation   : (Key , Value)");
+		System.out.println();
 		for (HashTableNode<T> h : this.bucketArray) {
 			if (h != null) {
-				System.out.println(h.getKey() + " -> " + h.getValue());
+				System.out.print("[" + h.getKey() + " , " + h.getValue() + "]");
 				if (h.next != null) {
 					avlTree.preOrder(h.next);
 				}
+				System.out.println();
 			}
 		}
 	}
@@ -97,7 +109,7 @@ public class HashTable<T extends Object> implements HashTableINTF<T> {
 
 		AVLTree<T> avlTree = new AVLTree<>();
 
-		// Traversing in map to find location of said node
+		// Traversing in map to find location of said node.
 		for (int i = 0; i < bucketArray.size(); i++) {
 			HashTableNode<T> temp = bucketArray.get(i);
 			if (temp != null) {
@@ -106,21 +118,22 @@ public class HashTable<T extends Object> implements HashTableINTF<T> {
 						AVLNode<T> root = temp.next;
 						root = avlTree.deleteNode(root, key);
 
-						// means root was the only tree node which got deleted
+						// It means root was the only tree node which got deleted.
 						temp.next = root;
 						break;
 					}
 				} else {
-					// if node has no tree
+					// If node has no tree.
 					if (temp.next == null) {
 						bucketArray.set(i, null);
 						break;
 					}
-					
+
 					HashTableNode<T> tempNode = new HashTableNode<>(temp.next.getKeyHT(), temp.next.getValue());
 					AVLNode<T> root = temp.next;
-					
-					//we have to deliberately remove root as in to produce shifting effect of nodes.
+
+					// We have to deliberately remove root as in to produce shifting effect of
+					// nodes.
 					root = avlTree.deleteNode(root, root.getKeyHT());
 					tempNode.next = root;
 					bucketArray.set(i, tempNode);
@@ -181,8 +194,7 @@ public class HashTable<T extends Object> implements HashTableINTF<T> {
 		return Objects.hashCode(key);
 	}
 
-	// This implements hash function to find index
-	// for a key
+	// This method implements hash function to find an index for key.
 	private int getBucketIndex(Integer key) {
 		int hashCode = hashCode(key);
 		int index = hashCode % numBuckets;
@@ -190,7 +202,7 @@ public class HashTable<T extends Object> implements HashTableINTF<T> {
 		return index;
 	}
 
-	// called when traversing in the tree while rehashing
+	// This method is used for traversing in tree while Re-hashing
 	public void preOrderAdd(AVLNode<T> node) {
 		if (node != null) {
 			add(node.getKeyHT(), node.getValue());
