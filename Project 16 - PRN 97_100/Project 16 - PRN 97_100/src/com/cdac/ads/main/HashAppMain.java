@@ -1,5 +1,5 @@
 /*
- * @Author				: Hardik Agarwal [220340120083] & Joy Pahari [220340120092]
+ * @Author	            : Kamana Mathur [220340120097] & Udit Keskar [220340120100]
  * @ProjectTitle		: ADS-Mini Project 
  * @ProblemStatement	: Implement Generic HashTable that uses Chaining for Collision Handling
  * @Date				: 01-06-2022 -> 09-06-2022
@@ -61,7 +61,7 @@ public class HashAppMain {
 	// function to add header while execution.
 	public static void header() {
 		System.out.println("----------------------------------------------------------------------------------------");
-		System.out.println("| ADS MINI PROJECT ~ Hardik(220340120083) & Joy(220340120092)                          |");
+		System.out.println("| ADS MINI PROJECT ~ Kamana(220340120097) & Udit(220340120100)                          |");
 		System.out.println("|                                                                                      |");
 		System.out.println("| Implementation of Generic Hash Table that uses chaining for collision handling,      |");
 		System.out.println("| where we implemented chaining using AVL tree.                                        |");

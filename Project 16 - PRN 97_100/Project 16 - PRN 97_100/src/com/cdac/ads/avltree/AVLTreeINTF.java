@@ -1,5 +1,5 @@
 /*
- * @Author				: Hardik Agarwal [220340120083] & Joy Pahari [220340120092]
+ * @Author				: Kamana Mathur [220340120097] & Udit Keskar [220340120100]
  * @ProjectTitle		: ADS-Mini Project 
  * @ProblemStatement	: Implement Generic HashTable that uses Chaining for Collision Handling
  * @Date				: 01-06-2022 -> 09-06-2022
